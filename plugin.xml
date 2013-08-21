@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    id="com.appback.plugins.appback"
+    version="1.0">
+
+    <name>Appback Phonegap (Cordova) Plugin</name>
+
+    <description>
+        This Appback plugin for Phonegap allows for easy use the Appback.com API in mobile applications.  Appback provides a mobile backend as a service with an easy to use API for social integration & login, game mechanics, and NoSQL custom data.  Register at https://appback.com
+    </description>
+
+    <license>MIT</license>
+
+    <engines>
+        <engine name="cordova" version=">=2.9.0" />
+    </engines>
+    
+    <!-- No native code. Javascript only -->
+    <asset src="www/appback.js" target="appback.js" />
+</plugin>

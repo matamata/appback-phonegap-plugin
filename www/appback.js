@@ -124,24 +124,24 @@
  
     var cbInvoked = false;
     function openRemoteChildBrowser(url, callback) {
-        console.log('openRemoteChildBrowser invoked for '+url);
+        if (debug) console.log('openRemoteChildBrowser invoked for '+url);
         
         //to ensure that CB is not invoked multiple times
         if (cbInvoked) return false;
         cbInvoked = true;
-        
-        window.plugins.childBrowser.onLocationChange = function(loc) {
-            if (loc.indexOf('closeme=true') > -1) {
-                window.plugins.childBrowser.close();
+ 
+        var cB = window.open(url, '_blank', 'location=no');
+ 
+        cB.addEventListener('loadstop', function(event) {
+            if (event.url.indexOf('closeme=true') > -1) {
+                cB.close();
             }
-        };
+        });
         
-        window.plugins.childBrowser.onClose = function() {
+        cB.addEventListener('exit', function() {
             cbInvoked = false;
             if (callback) callback();
-        };
-                
-        window.plugins.childBrowser.showWebPage(url);
+        });
     }
  
     /* Auto-install the plugin */
