@@ -4,13 +4,23 @@ This Appback plugin for Phonegap (a.k.a. Cordova) allows for easy use the Appbac
 
 ## Supported Platforms
 
-To use this plugin you must be running at least Phonegap/Cordova 2.0.  Newer versions have not been tested but may also work.  This plugin should be compatible with all mobile OS platforms supported by Phonegap.
+To use this plugin you must be running at least Phonegap/Cordova 2.9.  Newer versions have not been tested but may also work.  This plugin should be compatible with all mobile OS platforms supported by Phonegap.
 
 ## Installation and Use
 
 To install the plugin simply add appback.js to somewhere in /www and load it from the index.html file.
 
     <script type="text/javascript" src="appback.js"></script>
+    
+This plugin can also be installed using Plugman.
+
+    plugman --platform ios --project /path/to/project --plugin  https://github.com/appback/appback-phonegap-plugin.git
+    
+This plugin requires that the inAppBrowser is added to the phonegap config.xml file.
+
+    <feature name="InAppBrowser">
+        <param name="ios-package" value="CDVInAppBrowser" />
+    </feature>
 
 Initialize the plugin and try to login a social user.
 
@@ -24,7 +34,7 @@ Initialize the plugin and try to login a social user.
         }
     });
 
-(More documentation coming soon. For now see the plugin for other methods)
+(More documentation and plugin methods coming soon.)
 
 ## About Appback
 
