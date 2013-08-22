@@ -49,12 +49,14 @@
     appback.prototype.login = function(options) {
         if (debug) console.log('Appback: login invoked');
  
+        var preParam = (options.userData) ? '?userdata=true' : '?silentflag=closeme';
+ 
         var url = 'https://api.appback.com/'+appbackAppId+'/social/users/self/login';
         var sig = getAppbackSig(url);
  
         //open the childbrowser
         openRemoteChildBrowser(
-            url+'?silentflag=closeme&timestamp='+sig.timestamp+'&signature='+sig.signature,
+            url+preParam+'&timestamp='+sig.timestamp+'&signature='+sig.signature,
             function(){
                 window.plugins.appback.getUserData({
                     'userId':options.userId,
