@@ -1,6 +1,7 @@
 /*
 *   Appback Phonegap (Cordova) Plugin
 *   Copyright 2013 Xiatron LLC
+*   Made available under MIT License
 *
 *   Use a solid backend through an easy API designed for indie developers.
 *   Just go to http://appback.com to register for a free account.
