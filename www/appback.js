@@ -36,6 +36,7 @@
                 if (options.login) {
                     window.plugins.appback.login({
                         'userId':'self',
+                        'userData':options.userData,
                         'callback':options.callback
                     });
                 } else {
@@ -48,22 +49,22 @@
     /* Social user login method*/
     appback.prototype.login = function(options) {
         if (debug) console.log('Appback: login invoked');
- 
-        var preParam = (options.userData) ? '?userdata=true' : '?silentflag=closeme';
- 
+  
         var url = 'https://api.appback.com/'+appbackAppId+'/social/users/self/login';
         var sig = getAppbackSig(url);
  
         //open the childbrowser
         openRemoteChildBrowser(
-            url+preParam+'&timestamp='+sig.timestamp+'&signature='+sig.signature,
+            url+'?silentflag=closeme&timestamp='+sig.timestamp+'&signature='+sig.signature,
             function(){
-                window.plugins.appback.getUserData({
-                    'userId':options.userId,
-                    'callback':function(data) {
-                        if (options.callback) options.callback(data);
-                    }
-                });
+                if (options.userData) {
+                    window.plugins.appback.getUserData({
+                        'userId':options.userId,
+                        'callback':function(data) {
+                            if (options.callback) options.callback(data);
+                        }
+                    });
+                }
             }
         );
     }

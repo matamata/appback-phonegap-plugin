@@ -28,7 +28,8 @@ Initialize the plugin and try to login a social user.
         'appid':id,
         'secret':secret, //get this in a secure way!
         'login':true, //invoke the login method too
-        'debug':true, //log to troubleshoot
+        'userData':true, //return user info after login
+        'debug':true, //console log to troubleshoot
         'callback':function(userData) {
             //returns user info as JSON
             console.log(JSON.stringify(userData));
@@ -38,18 +39,17 @@ Initialize the plugin and try to login a social user.
 Login a user using Appback registered social networks.
 
     window.plugins.appback.login({
-        'userData':true //also return user info
-        'callback':function(data) {
-            //returns user status and info as JSON
-            console.log(JSON.stringify(data.status)); //(un)authenicated
-            console.log(JSON.stringify(data.user_data)); //returned is userData is true
+        'userData':true, //to return user info
+        'callback':function(userData) {
+            //returns user info as JSON
+            console.log(JSON.stringify(userData));
         }
     });
     
 Get logged in user information (id, provider, email, etc.).
 
     window.plugins.appback.getUserData({
-        'userId':'USERID' //appback userid or self for logged in user
+        'userId':'USERID', //appback userid or self for logged in user
         'callback':function(userData) {
             //returns user info as JSON
             console.log(JSON.stringify(userData));
