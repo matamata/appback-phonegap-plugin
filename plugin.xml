@@ -18,4 +18,10 @@
     
     <!-- No native code. Javascript only -->
     <asset src="www/appback.js" target="appback.js" />
+    
+    <platform name="ios">
+    </platform>
+    
+    <platform name="android">
+    </platform>
 </plugin>
