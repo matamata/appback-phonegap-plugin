@@ -1,5 +1,5 @@
 /*
-*   Appback Phonegap (Cordova) Plugin
+*   Appback Phonegap (Cordova) Plugin v1.0.1
 *   Copyright 2013 Xiatron LLC
 *   Made available under MIT License
 *
