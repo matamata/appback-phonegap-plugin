@@ -1,5 +1,5 @@
 /*
-*   Appback Phonegap (Cordova) Plugin v1.0.1
+*   Appback Phonegap (Cordova) Plugin v1.1.0
 *   Copyright 2013 Xiatron LLC
 *   Made available under MIT License
 *
@@ -33,12 +33,10 @@
                 appbackAppId = options.appid;
                 appbackSecret = options.secret;
                 
-                if (options.login) {
-                    window.plugins.appback.login({
-                        'userId':'self',
-                        'userData':options.userData,
-                        'callback':options.callback
-                    });
+                if (options.authenticate == 'login') {
+                    window.plugins.appback.login(options);
+                } else if ( (options.authenticate == 'restore' || options.authenticate == 'both')  && options.userId ) {
+                    window.plugins.appback.restore(options);
                 } else {
                     if (options.callback) options.callback();
                 }
@@ -50,7 +48,7 @@
     appback.prototype.login = function(options) {
         if (debug) console.log('Appback: login invoked');
   
-        var url = 'https://api.appback.com/'+appbackAppId+'/social/users/self/login';
+        var url = 'https://api.appback.com/'+appbackAppId+'/social/users/'+options.userId+'/login';
         var sig = getAppbackSig(url);
  
         //open the childbrowser
@@ -67,6 +65,30 @@
                 }
             }
         );
+    }
+ 
+    /* Social session restore method */
+    appback.prototype.restore = function(options) {
+        if (debug) console.log('Appback: restore invoked');
+ 
+        var url = 'https://api.appback.com/'+appbackAppId+'/social/users/'+options.userId+'/login';
+        var sig = getAppbackSig(url);
+        var userDataParam = (options.userData) ? '&userdata=true' : '';
+        if (debug) console.log('Appback: restore url: '+url+'?restore=true'+userDataParam+'&timestamp='+sig.timestamp+'&signature='+sig.signature);
+        $.get(
+            url+'?restore=true'+userDataParam+'&timestamp='+sig.timestamp+'&signature='+sig.signature,
+            function(data) {
+                if (debug) console.log('Appback: restore success response = '+JSON.stringify(data));
+                if (options.callback) options.callback(data);
+            }
+        ).fail(function(data) {
+            if (options.authenticate == 'both') {
+                window.plugins.appback.login(options);
+            } else {
+                if (debug) console.log('Appback: restore error response = '+JSON.stringify(JSON.parse(data.responseText)));
+                if (options.callback) options.callback(JSON.parse(data.responseText));
+            }
+        });
     }
  
     /* Social user data method */

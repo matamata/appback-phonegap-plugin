@@ -4,7 +4,7 @@ This Appback plugin for Phonegap (a.k.a. Cordova) allows for easy use the Appbac
 
 ## Supported Platforms
 
-To use this plugin you must be running at least Phonegap/Cordova 2.9.  Newer versions have not been tested but may also work.  This plugin should be compatible with all mobile OS platforms supported by Phonegap.
+To use this plugin you must be running at least Phonegap/Cordova 2.9.  This plugin should be compatible with all mobile OS platforms supported by Phonegap.
 
 ## Installation and Use
 
@@ -22,31 +22,72 @@ This plugin requires that the inAppBrowser is added to the phonegap config.xml f
         <param name="ios-package" value="CDVInAppBrowser" />
     </feature>
 
-Initialize the plugin and try to login a social user.
+Initialize the plugin.
 
     window.plugins.appback.init({
-        'appid':id,
-        'secret':secret, //get this in a secure way!
-        'login':true, //invoke the login method too
-        'userData':true, //return user info after login
-        'debug':true, //console log to troubleshoot
+        'appid':id, //required
+        'secret':secret, //get this in a secure way! required
+        'callback':function() {
+            //do something
+            console.log('Appback Plugin Initalized');
+        }
+    });
+
+Initialize the plugin AND invoke an interactive social login AND return user data.
+
+    window.plugins.appback.init({
+        'appid':id, //required
+        'secret':secret, //required
+        'authenticate':'login',
+        'userId':'self', //[id|self]
+        'userData':true, //[true|false]return user info after login (optional)
         'callback':function(userData) {
             //returns user info as JSON
             console.log(JSON.stringify(userData));
         }
     });
     
-Login a user using Appback registered social networks.
+Initialize the plugin AND invoke a session restore.
+
+    window.plugins.appback.init({
+        'appid':id, //required
+        'secret':secret, //required
+        'authenticate':'restore',
+        'userId':UserId //userId is required
+    });
+    
+Initialize the plugin AND invoke a session restore THEN login if restore is unsuccessful.
+
+    window.plugins.appback.init({
+        'appid':id, //required
+        'secret':secret, //required
+        'authenticate':'both',
+        'userId':UserId //userId is required
+    });
+    
+Login a user using Appback registered social networks (plugin must already be initalized).
 
     window.plugins.appback.login({
-        'userData':true, //to return user info
+        'userId':'self', //[id|self] required
+        'userData':true, //[true|false]to return user info (optional)
         'callback':function(userData) {
             //returns user info as JSON
             console.log(JSON.stringify(userData));
         }
     });
     
-Get logged in user information (id, provider, email, etc.).
+Restore an authenicated session if available (plugin must already be initalized).
+
+    window.plugins.appback.restore({
+        'userId':UserId, //userId is required
+        'userData':true, //[true|false]to return user info (optional)
+        'callback':function(data) {
+            //returns response data as JSON
+            console.log(JSON.stringify(data));
+        }
+    });
+    
+Get logged in user information (id, provider, email, etc.) (plugin must already be initalized).
 
     window.plugins.appback.getUserData({
         'userId':'USERID', //appback userid or self for logged in user
@@ -56,7 +97,7 @@ Get logged in user information (id, provider, email, etc.).
         }
     });
 
-Get all app users statistics (total users, posts, etc.).
+Get all app users statistics (total users, posts, etc.) (plugin must already be initalized).
 
     window.plugins.appback.getUsersStats(function(userStats){
         //returns app users stats as JSON
