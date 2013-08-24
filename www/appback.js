@@ -33,7 +33,7 @@
                 appbackAppId = options.appid;
                 appbackSecret = options.secret;
                 
-                if (options.authenticate == 'login') {
+                if (options.authenticate == 'login' && options.userId) {
                     window.plugins.appback.login(options);
                 } else if ( (options.authenticate == 'restore' || options.authenticate == 'both')  && options.userId ) {
                     window.plugins.appback.restore(options);
@@ -62,6 +62,8 @@
                             if (options.callback) options.callback(data);
                         }
                     });
+                } else {
+                    if (options.callback) options.callback();
                 }
             }
         );

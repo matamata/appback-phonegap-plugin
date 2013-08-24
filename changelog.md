@@ -1,4 +1,4 @@
-## 1.1.0 (Aug 22, 2013)
+## 1.1.0 (Aug 24, 2013)
 
  * Add session Restore method
  * Replaced Init method "login" option with "authenticate"
