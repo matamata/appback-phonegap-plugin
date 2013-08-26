@@ -87,14 +87,19 @@ Restore an authenicated session if available (plugin must already be initalized)
         }
     });
     
-Get logged in user information (id, provider, email, etc.) (plugin must already be initalized).
+Logout a user.
+
+    window.plugins.appback.logout({
+        'success': successCallback,
+        'fail': failureCallback
+    });
+    
+Get user information (id, provider, email, etc.) (plugin must already be initalized and user logged in).
 
     window.plugins.appback.getUserData({
         'userId':'USERID', //appback userid or self for logged in user
-        'callback':function(userData) {
-            //returns user info as JSON
-            console.log(JSON.stringify(userData));
-        }
+        'success': successCallback,
+        'fail': failureCallback
     });
 
 Get all app users statistics (total users, posts, etc.) (plugin must already be initalized).

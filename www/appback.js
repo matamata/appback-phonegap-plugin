@@ -1,5 +1,5 @@
 /*
-*   Appback Phonegap (Cordova) Plugin v1.1.0
+*   Appback Phonegap (Cordova) Plugin v1.2.0
 *   Copyright 2013 Xiatron LLC
 *   Made available under MIT License
 *
@@ -93,6 +93,22 @@
         });
     }
  
+    /* Social session logout method */
+    appback.prototype.logout = function(options) {
+        if (debug) console.log('Appback: logout invoked');
+ 
+        var url = 'https://api.appback.com/'+appbackAppId+'/social/users/self/logout';
+        var sig = getAppbackSig(url);
+ 
+        $.get(
+            url+'?timestamp='+sig.timestamp+'&signature='+sig.signature,
+            function(data) {
+                if (debug) console.log('Appback: logout success response = '+JSON.stringify(data));
+                if (options.success) options.success(data);
+            }
+        ).fail(function(data) { invokeAppbackFail('Logout', options, data); });
+    }
+ 
     /* Social user data method */
     appback.prototype.getUserData = function(options) {
         if (debug) console.log('Appback: getUserData invoked');
@@ -103,9 +119,10 @@
         $.get(
             url+'?userdata=true&timestamp='+sig.timestamp+'&signature='+sig.signature,
             function(data) {
-                if (options.callback) options.callback(data);
+                if (debug) console.log(JSON.stringify(data));
+                if (options.success) options.success(data);
             }
-        );
+        ).fail(function(data) { invokeAppbackFail('Get User Data', options, data); });
     }
  
     /* Social users stats method */
@@ -124,6 +141,11 @@
     }
  
     /* Internal functions */
+    function invokeAppbackFail(method, options, data) {
+        if (debug) console.log('Appback: '+method+' fail response = '+JSON.stringify(JSON.parse(data.responseText)));
+        if (options.fail) options.fail(JSON.parse(data.responseText));
+    }
+ 
     function loadScript(src, callback) {
         var script = document.createElement('script');
         script.type = 'text/javascript';

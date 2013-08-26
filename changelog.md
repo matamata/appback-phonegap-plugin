@@ -1,6 +1,12 @@
+## 1.2.0 (Aug 26, 2013)
+
+ * Added Logout method
+ * Removed "callback" option from Get User Data method
+ * Added "success" and "fail" options to Get User Data method
+
 ## 1.1.0 (Aug 24, 2013)
 
- * Add session Restore method
+ * Added session Restore method
  * Replaced Init method "login" option with "authenticate"
  * Init method can now invoke "login", "restore", or "both"
  * Added improved userId handling
