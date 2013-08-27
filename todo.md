@@ -6,6 +6,8 @@
 - [ ] Add method to return the leader board
 - [ ] Add method to return player information
 - [ ] Add method to update player stats
-- [ ] Add success and fail callbacks to all methods
-- [ ] Add defferred .fail() to all $.get() requests
+- [ ] Add error handling to Init method
+- [ ] Add loading indicator to InAppBrowser
+- [X] Add success and fail callbacks to all methods
+- [X] Add defferred .fail() to all $.get() requests
 - [X] Add method to logout user

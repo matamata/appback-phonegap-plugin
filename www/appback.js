@@ -1,5 +1,5 @@
 /*
-*   Appback Phonegap (Cordova) Plugin v1.2.0
+*   Appback Phonegap (Cordova) Plugin v1.2.1
 *   Copyright 2013 Xiatron LLC
 *   Made available under MIT License
 *
@@ -38,7 +38,7 @@
                 } else if ( (options.authenticate == 'restore' || options.authenticate == 'both')  && options.userId ) {
                     window.plugins.appback.restore(options);
                 } else {
-                    if (options.callback) options.callback();
+                    if (options.success) options.success();
                 }
             }
         },1000);
@@ -56,14 +56,9 @@
             url+'?silentflag=closeme&timestamp='+sig.timestamp+'&signature='+sig.signature,
             function(){
                 if (options.userData) {
-                    window.plugins.appback.getUserData({
-                        'userId':options.userId,
-                        'callback':function(data) {
-                            if (options.callback) options.callback(data);
-                        }
-                    });
+                    window.plugins.appback.getUserData(options);
                 } else {
-                    if (options.callback) options.callback();
+                    if (options.success) options.success();
                 }
             }
         );
@@ -81,14 +76,13 @@
             url+'?restore=true'+userDataParam+'&timestamp='+sig.timestamp+'&signature='+sig.signature,
             function(data) {
                 if (debug) console.log('Appback: restore success response = '+JSON.stringify(data));
-                if (options.callback) options.callback(data);
+                if (options.success) options.success(data);
             }
         ).fail(function(data) {
             if (options.authenticate == 'both') {
                 window.plugins.appback.login(options);
             } else {
-                if (debug) console.log('Appback: restore error response = '+JSON.stringify(JSON.parse(data.responseText)));
-                if (options.callback) options.callback(JSON.parse(data.responseText));
+                invokeAppbackFail('Restore', options, data);
             }
         });
     }
@@ -126,7 +120,7 @@
     }
  
     /* Social users stats method */
-    appback.prototype.getUsersStats = function(callback) {
+    appback.prototype.getUsersStats = function(options) {
         if (debug) console.log('Appback: getUsersStats invoked');
  
         var url = 'https://api.appback.com/'+appbackAppId+'/social/users/';
@@ -135,9 +129,10 @@
         $.get(
             url+'?timestamp='+sig.timestamp+'&signature='+sig.signature,
             function(data) {
-                callback(data);
+                if (debug) console.log(JSON.stringify(data));
+                if (options.success) options.success(data);
             }
-        );
+        ).fail(function(data) { invokeAppbackFail('Get User Stats', options, data); });
     }
  
     /* Internal functions */

@@ -1,3 +1,8 @@
+## 1.2.1 (Aug 27, 2013)
+
+ * Replaced "callback" with "success" option in all methods
+ * Added "fail" option to all except Init and Login methods
+
 ## 1.2.0 (Aug 26, 2013)
 
  * Added Logout method

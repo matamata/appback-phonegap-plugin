@@ -27,10 +27,7 @@ Initialize the plugin.
     window.plugins.appback.init({
         'appid':id, //required
         'secret':secret, //get this in a secure way! required
-        'callback':function() {
-            //do something
-            console.log('Appback Plugin Initalized');
-        }
+        'success': successCallback
     });
 
 Initialize the plugin AND invoke an interactive social login AND return user data.
@@ -41,7 +38,7 @@ Initialize the plugin AND invoke an interactive social login AND return user dat
         'authenticate':'login',
         'userId':'self', //[id|self]
         'userData':true, //[true|false]return user info after login (optional)
-        'callback':function(userData) {
+        'success':function(userData) {
             //returns user info as JSON
             console.log(JSON.stringify(userData));
         }
@@ -70,7 +67,7 @@ Login a user using Appback registered social networks (plugin must already be in
     window.plugins.appback.login({
         'userId':'self', //[id|self] required
         'userData':true, //[true|false]to return user info (optional)
-        'callback':function(userData) {
+        'success':function(userData) {
             //returns user info as JSON
             console.log(JSON.stringify(userData));
         }
@@ -81,10 +78,11 @@ Restore an authenicated session if available (plugin must already be initalized)
     window.plugins.appback.restore({
         'userId':UserId, //userId is required
         'userData':true, //[true|false]to return user info (optional)
-        'callback':function(data) {
+        'success':function(data) {
             //returns response data as JSON
             console.log(JSON.stringify(data));
-        }
+        },
+        'fail': failureCallback
     });
     
 Logout a user.
@@ -104,9 +102,12 @@ Get user information (id, provider, email, etc.) (plugin must already be initali
 
 Get all app users statistics (total users, posts, etc.) (plugin must already be initalized).
 
-    window.plugins.appback.getUsersStats(function(userStats){
-        //returns app users stats as JSON
-        console.log(JSON.stringify(usersStats));
+    window.plugins.appback.getUsersStats({
+        'success':function(data) {
+            //returns response data as JSON
+            console.log(JSON.stringify(data));
+        },
+        'fail': failureCallback
     });
     
 
