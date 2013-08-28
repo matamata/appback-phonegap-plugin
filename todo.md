@@ -7,7 +7,7 @@
 - [ ] Add method to return player information
 - [ ] Add method to update player stats
 - [ ] Add error handling to Init method
-- [ ] Add loading indicator to InAppBrowser
+- [X] Add loading indicator to InAppBrowser
 - [X] Add success and fail callbacks to all methods
 - [X] Add defferred .fail() to all $.get() requests
 - [X] Add method to logout user

@@ -1,3 +1,7 @@
+## 1.2.2 (Aug 28, 2013)
+
+ * Added loading indicator to InAppBrowswer Login view
+
 ## 1.2.1 (Aug 27, 2013)
 
  * Replaced "callback" with "success" option in all methods

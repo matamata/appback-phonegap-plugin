@@ -1,5 +1,5 @@
 /*
-*   Appback Phonegap (Cordova) Plugin v1.2.1
+*   Appback Phonegap (Cordova) Plugin v1.2.2
 *   Copyright 2013 Xiatron LLC
 *   Made available under MIT License
 *
@@ -167,6 +167,7 @@
         return {'signature':hashHexed,'timestamp':timestamp};
     }
  
+    var cB = null;
     var cbInvoked = false;
     function openRemoteChildBrowser(url, callback) {
         if (debug) console.log('openRemoteChildBrowser invoked for '+url);
@@ -175,7 +176,27 @@
         if (cbInvoked) return false;
         cbInvoked = true;
  
-        var cB = window.open(url, '_blank', 'location=no');
+        cB = window.open(url, '_blank', 'location=no');
+ 
+        cB.addEventListener('loadstart', function(event) {
+            cB.executeScript({
+                code:"\
+                        var loading = function() {\
+                            if (jQuery('#injLoading').length == 0) {\
+                                jQuery('body').append('<div id=\"injLoading\" style=\"display: table; position: fixed; top: 0px; left: 0px; width: 100%; height:100%; color: #fff; background: rgba(0, 0, 0, 0.6); text-align: center; \"><div style=\"display: table-cell; vertical-align: middle; font-weight: bold; font-size: 22px; \">loading...</div></div>');\
+                            }\
+                        };\
+                        if (typeof jQuery=='undefined') {\
+                            var script = document.createElement('script');\
+                            script.type = 'text/javascript';\
+                            script.src = 'http://api.appback.com/scripts/phonegap/jquery.min.js';\
+                            script.onload = loading;\
+                            document.getElementsByTagName('head')[0].appendChild(script);\
+                        } else {\
+                            loading();\
+                        }"
+            });
+        });
  
         cB.addEventListener('loadstop', function(event) {
             if (event.url.indexOf('closeme=true') > -1) {
