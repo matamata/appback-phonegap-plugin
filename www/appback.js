@@ -1,5 +1,5 @@
 /*
-*   Appback Phonegap (Cordova) Plugin v1.2.2
+*   Appback Phonegap (Cordova) Plugin v1.3.0
 *   Copyright 2013 Xiatron LLC
 *   Made available under MIT License
 *
@@ -133,6 +133,59 @@
                 if (options.success) options.success(data);
             }
         ).fail(function(data) { invokeAppbackFail('Get User Stats', options, data); });
+    }
+ 
+    /* Social users status update method */
+    appback.prototype.postUserStatus = function(options) {
+        if (debug) console.log('Appback: postUsersStatus invoked');
+ 
+        var url = 'https://api.appback.com/'+appbackAppId+'/social/users/'+options.userId+'/status/';
+        var sig = getAppbackSig(url);
+        console.log(url+'?message='+options.message+'&timestamp='+sig.timestamp+'&signature='+sig.signature);
+ 
+        $.post(
+            url+'?message='+options.message+'&timestamp='+sig.timestamp+'&signature='+sig.signature,
+            function(data) {
+                if (debug) console.log(JSON.stringify(data));
+                if (options.success) options.success(data);
+            }
+        ).fail(function(data) { invokeAppbackFail('Post User Status', options, data); });
+    }
+ 
+    /* Game get achievments method */
+    appback.prototype.getAchievements = function(options) {
+        if (debug) console.log('Appback: getAchievements invoked');
+ 
+        var url = 'https://api.appback.com/'+appbackAppId+'/game/achievements/';
+        var sig = getAppbackSig(url);
+ 
+        $.get(
+            url+'?timestamp='+sig.timestamp+'&signature='+sig.signature,
+            function(data) {
+                if (debug) console.log(JSON.stringify(data));
+                if (options.success) options.success(data);
+            }
+        ).fail(function(data) { invokeAppbackFail('Get Achievements', options, data); });
+    }
+ 
+    /* Game update player stats method */
+    appback.prototype.updatePlayerStats = function(options) {
+        if (debug) console.log('Appback: updatePlayerStats invoked');
+ 
+        var url = 'https://api.appback.com/'+appbackAppId+'/game/players/self/update/';
+        var sig = getAppbackSig(url);
+        var achParam = (options.achId && options.amount) ? '&achievement='+options.achId+'&amount='+options.amount : '';
+        var pointsParam = (options.points) ? '&points='+options.points : '';
+ 
+        console.log(url+'?timestamp='+sig.timestamp+achParam+pointsParam+'&signature='+sig.signature);
+ 
+        $.post(
+            url+'?timestamp='+sig.timestamp+achParam+pointsParam+'&signature='+sig.signature,
+            function(data) {
+                if (debug) console.log(JSON.stringify(data));
+                if (options.success) options.success(data);
+            }
+        ).fail(function(data) { invokeAppbackFail('Update Player Stats', options, data); });
     }
  
     /* Internal functions */

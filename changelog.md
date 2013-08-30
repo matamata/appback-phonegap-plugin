@@ -1,3 +1,9 @@
+## 1.3.0 (Aug 30, 2013)
+
+ * Added Post user Status method
+ * Added Get Game Achievements method
+ * Added Update Player Stats method
+
 ## 1.2.2 (Aug 28, 2013)
 
  * Added loading indicator to InAppBrowswer Login view

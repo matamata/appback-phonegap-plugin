@@ -110,6 +110,31 @@ Get all app users statistics (total users, posts, etc.) (plugin must already be 
         'fail': failureCallback
     });
     
+Post user status to authenicated social provider (plugin must already be initalized and user logged in).
+
+    window.plugins.appback.postUserStatus({
+        'userId':'self',
+        'message':'Message text',
+        'success': successCallback,
+        'fail': failureCallback
+    });
+    
+Get game achievements (plugin must already be initalized and user logged in).
+
+    window.plugins.appback.getAchievements({
+        'success': successCallback,
+        'fail': failureCallback
+    });
+    
+Update Player Stats (plugin must already be initalized and user logged in).
+                        
+    window.plugins.appback.updatePlayerStats({
+        'points':'1', //points to add
+        'achId':'2', //achievement ID
+        'amount':'10', //amount of actions
+        'success':successCallback,
+        'fail': failureCallback
+    });
 
 (More documentation and plugin methods coming soon.)
 
