@@ -126,6 +126,36 @@ Get game achievements (plugin must already be initalized and user logged in).
         'fail': failureCallback
     });
     
+Get single game achievement (plugin must already be initalized and user logged in).
+
+    window.plugins.appback.getAchievement({
+        'achId': achievementId
+        'success': successCallback,
+        'fail': failureCallback
+    });
+    
+Get game levels (plugin must already be initalized and user logged in).
+
+    window.plugins.appback.getLevels({
+        'success': successCallback,
+        'fail': failureCallback
+    });
+    
+Get single game level (plugin must already be initalized and user logged in).
+
+    window.plugins.appback.getLevel({
+        'achId': levelId
+        'success': successCallback,
+        'fail': failureCallback
+    });
+    
+Get game leaderboard (plugin must already be initalized and user logged in).
+
+    window.plugins.appback.getLeaderboard({
+        'success': successCallback,
+        'fail': failureCallback
+    });
+    
 Update Player Stats (plugin must already be initalized and user logged in).
                         
     window.plugins.appback.updatePlayerStats({

@@ -1,5 +1,5 @@
 /*
-*   Appback Phonegap (Cordova) Plugin v1.3.0
+*   Appback Phonegap (Cordova) Plugin v1.4.0
 *   Copyright 2013 Xiatron LLC
 *   Made available under MIT License
 *
@@ -166,6 +166,70 @@
                 if (options.success) options.success(data);
             }
         ).fail(function(data) { invokeAppbackFail('Get Achievements', options, data); });
+    }
+ 
+    /* Game get single achievment method */
+    appback.prototype.getAchievement = function(options) {
+        if (debug) console.log('Appback: getAchievement invoked');
+ 
+        var url = 'https://api.appback.com/'+appbackAppId+'/game/achievements/'+options.achId;
+        var sig = getAppbackSig(url);
+ 
+        $.get(
+            url+'?userdata=true&timestamp='+sig.timestamp+'&signature='+sig.signature,
+            function(data) {
+                if (debug) console.log(JSON.stringify(data));
+                if (options.success) options.success(data);
+            }
+        ).fail(function(data) { invokeAppbackFail('Get Achievement', options, data); });
+    }
+ 
+    /* Game get levels method */
+    appback.prototype.getLevels = function(options) {
+        if (debug) console.log('Appback: getLevels invoked');
+ 
+        var url = 'https://api.appback.com/'+appbackAppId+'/game/levels/';
+        var sig = getAppbackSig(url);
+ 
+        $.get(
+            url+'?timestamp='+sig.timestamp+'&signature='+sig.signature,
+            function(data) {
+                if (debug) console.log(JSON.stringify(data));
+                if (options.success) options.success(data);
+            }
+        ).fail(function(data) { invokeAppbackFail('Get Levels', options, data); });
+    }
+ 
+    /* Game get single level method */
+    appback.prototype.getLevel = function(options) {
+        if (debug) console.log('Appback: getLevel invoked');
+ 
+        var url = 'https://api.appback.com/'+appbackAppId+'/game/levels/'+options.levelId;
+        var sig = getAppbackSig(url);
+ 
+        $.get(
+            url+'?userdata=true&timestamp='+sig.timestamp+'&signature='+sig.signature,
+            function(data) {
+                if (debug) console.log(JSON.stringify(data));
+                if (options.success) options.success(data);
+            }
+        ).fail(function(data) { invokeAppbackFail('Get Level', options, data); });
+    }
+ 
+    /* Game get leaderboard method */
+    appback.prototype.getLeaderboard = function(options) {
+        if (debug) console.log('Appback: getLeaderboard invoked');
+ 
+        var url = 'https://api.appback.com/'+appbackAppId+'/game/players/';
+        var sig = getAppbackSig(url);
+ 
+        $.get(
+            url+'?timestamp='+sig.timestamp+'&signature='+sig.signature,
+            function(data) {
+                if (debug) console.log(JSON.stringify(data));
+                if (options.success) options.success(data);
+            }
+        ).fail(function(data) { invokeAppbackFail('Get Leaderboard', options, data); });
     }
  
     /* Game update player stats method */

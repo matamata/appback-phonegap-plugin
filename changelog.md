@@ -1,3 +1,10 @@
+## 1.4.0 (Sep 01, 2013)
+
+ * Added Get Game Leaderboard method
+ * Added Get Game Achievement method
+ * Added Get Game Levels method
+ * Added Get Game Level method
+
 ## 1.3.0 (Aug 30, 2013)
 
  * Added Post user Status method
