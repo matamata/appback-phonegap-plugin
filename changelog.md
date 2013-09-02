@@ -1,3 +1,8 @@
+## 1.5.0 (Sep 02, 2013)
+
+ * Added Get Player method
+ * Consolidated Ajax Requests into common method
+
 ## 1.4.0 (Sep 01, 2013)
 
  * Added Get Game Leaderboard method

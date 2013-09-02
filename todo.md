@@ -1,7 +1,7 @@
-- [ ] Add method to return player information
 - [ ] Add error handling to Init method
-- [ ] Add function and consolidate $.get() use
 - [ ] Add limit option to appropriate methods
+- [X] Add function to consolidate $.get() use
+- [X] Add method to return player information
 - [X] Add method to return levels info
 - [X] Add method to return a single level info
 - [X] Add method to return a single achievement info

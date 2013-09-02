@@ -156,6 +156,14 @@ Get game leaderboard (plugin must already be initalized and user logged in).
         'fail': failureCallback
     });
     
+Get player info (plugin must already be initalized and user logged in).
+
+    window.plugins.appback.getPlayer({
+        'achId': userId
+        'success': successCallback,
+        'fail': failureCallback
+    });
+    
 Update Player Stats (plugin must already be initalized and user logged in).
                         
     window.plugins.appback.updatePlayerStats({

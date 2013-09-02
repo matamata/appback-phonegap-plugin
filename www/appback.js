@@ -1,5 +1,5 @@
 /*
-*   Appback Phonegap (Cordova) Plugin v1.4.0
+*   Appback Phonegap (Cordova) Plugin v1.5.0
 *   Copyright 2013 Xiatron LLC
 *   Made available under MIT License
 *
@@ -47,7 +47,6 @@
     /* Social user login method*/
     appback.prototype.login = function(options) {
         if (debug) console.log('Appback: login invoked');
-  
         var url = 'https://api.appback.com/'+appbackAppId+'/social/users/'+options.userId+'/login';
         var sig = getAppbackSig(url);
  
@@ -67,7 +66,6 @@
     /* Social session restore method */
     appback.prototype.restore = function(options) {
         if (debug) console.log('Appback: restore invoked');
- 
         var url = 'https://api.appback.com/'+appbackAppId+'/social/users/'+options.userId+'/login';
         var sig = getAppbackSig(url);
         var userDataParam = (options.userData) ? '&userdata=true' : '';
@@ -90,169 +88,125 @@
     /* Social session logout method */
     appback.prototype.logout = function(options) {
         if (debug) console.log('Appback: logout invoked');
- 
         var url = 'https://api.appback.com/'+appbackAppId+'/social/users/self/logout';
         var sig = getAppbackSig(url);
- 
-        $.get(
-            url+'?timestamp='+sig.timestamp+'&signature='+sig.signature,
-            function(data) {
-                if (debug) console.log('Appback: logout success response = '+JSON.stringify(data));
-                if (options.success) options.success(data);
-            }
-        ).fail(function(data) { invokeAppbackFail('Logout', options, data); });
+        var requestUrl = url+'?timestamp='+sig.timestamp+'&signature='+sig.signature;
+        ajaxGetRequest(requestUrl, 'Logout', options);
     }
  
     /* Social user data method */
     appback.prototype.getUserData = function(options) {
         if (debug) console.log('Appback: getUserData invoked');
- 
         var url = 'https://api.appback.com/'+appbackAppId+'/social/users/'+options.userId;
         var sig = getAppbackSig(url);
- 
-        $.get(
-            url+'?userdata=true&timestamp='+sig.timestamp+'&signature='+sig.signature,
-            function(data) {
-                if (debug) console.log(JSON.stringify(data));
-                if (options.success) options.success(data);
-            }
-        ).fail(function(data) { invokeAppbackFail('Get User Data', options, data); });
+        var requestUrl = url+'?userdata=true&timestamp='+sig.timestamp+'&signature='+sig.signature;
+        ajaxGetRequest(requestUrl, 'Get User Data', options);
     }
  
     /* Social users stats method */
     appback.prototype.getUsersStats = function(options) {
         if (debug) console.log('Appback: getUsersStats invoked');
- 
         var url = 'https://api.appback.com/'+appbackAppId+'/social/users/';
         var sig = getAppbackSig(url);
- 
-        $.get(
-            url+'?timestamp='+sig.timestamp+'&signature='+sig.signature,
-            function(data) {
-                if (debug) console.log(JSON.stringify(data));
-                if (options.success) options.success(data);
-            }
-        ).fail(function(data) { invokeAppbackFail('Get User Stats', options, data); });
+        var requestUrl = url+'?timestamp='+sig.timestamp+'&signature='+sig.signature;
+        ajaxGetRequest(requestUrl, 'Get User Stats', options);
     }
  
     /* Social users status update method */
     appback.prototype.postUserStatus = function(options) {
         if (debug) console.log('Appback: postUsersStatus invoked');
- 
         var url = 'https://api.appback.com/'+appbackAppId+'/social/users/'+options.userId+'/status/';
         var sig = getAppbackSig(url);
-        console.log(url+'?message='+options.message+'&timestamp='+sig.timestamp+'&signature='+sig.signature);
- 
-        $.post(
-            url+'?message='+options.message+'&timestamp='+sig.timestamp+'&signature='+sig.signature,
-            function(data) {
-                if (debug) console.log(JSON.stringify(data));
-                if (options.success) options.success(data);
-            }
-        ).fail(function(data) { invokeAppbackFail('Post User Status', options, data); });
+        var requestUrl = url+'?message='+options.message+'&timestamp='+sig.timestamp+'&signature='+sig.signature;
+        ajaxPostRequest(requestUrl, 'Post User Status', options);
     }
  
     /* Game get achievments method */
     appback.prototype.getAchievements = function(options) {
         if (debug) console.log('Appback: getAchievements invoked');
- 
         var url = 'https://api.appback.com/'+appbackAppId+'/game/achievements/';
         var sig = getAppbackSig(url);
- 
-        $.get(
-            url+'?timestamp='+sig.timestamp+'&signature='+sig.signature,
-            function(data) {
-                if (debug) console.log(JSON.stringify(data));
-                if (options.success) options.success(data);
-            }
-        ).fail(function(data) { invokeAppbackFail('Get Achievements', options, data); });
+        var requestUrl = url+'?timestamp='+sig.timestamp+'&signature='+sig.signature;
+        ajaxGetRequest(requestUrl, 'Get Achievements', options);
     }
  
     /* Game get single achievment method */
     appback.prototype.getAchievement = function(options) {
         if (debug) console.log('Appback: getAchievement invoked');
- 
         var url = 'https://api.appback.com/'+appbackAppId+'/game/achievements/'+options.achId;
         var sig = getAppbackSig(url);
- 
-        $.get(
-            url+'?userdata=true&timestamp='+sig.timestamp+'&signature='+sig.signature,
-            function(data) {
-                if (debug) console.log(JSON.stringify(data));
-                if (options.success) options.success(data);
-            }
-        ).fail(function(data) { invokeAppbackFail('Get Achievement', options, data); });
+        var requestUrl = url+'?userdata=true&timestamp='+sig.timestamp+'&signature='+sig.signature;
+        ajaxGetRequest(requestUrl, 'Get Achievement', options);
     }
  
     /* Game get levels method */
     appback.prototype.getLevels = function(options) {
         if (debug) console.log('Appback: getLevels invoked');
- 
         var url = 'https://api.appback.com/'+appbackAppId+'/game/levels/';
         var sig = getAppbackSig(url);
- 
-        $.get(
-            url+'?timestamp='+sig.timestamp+'&signature='+sig.signature,
-            function(data) {
-                if (debug) console.log(JSON.stringify(data));
-                if (options.success) options.success(data);
-            }
-        ).fail(function(data) { invokeAppbackFail('Get Levels', options, data); });
+        var requestUrl = url+'?timestamp='+sig.timestamp+'&signature='+sig.signature;
+        ajaxGetRequest(requestUrl, 'Get Levels', options);
     }
  
     /* Game get single level method */
     appback.prototype.getLevel = function(options) {
         if (debug) console.log('Appback: getLevel invoked');
- 
         var url = 'https://api.appback.com/'+appbackAppId+'/game/levels/'+options.levelId;
         var sig = getAppbackSig(url);
- 
-        $.get(
-            url+'?userdata=true&timestamp='+sig.timestamp+'&signature='+sig.signature,
-            function(data) {
-                if (debug) console.log(JSON.stringify(data));
-                if (options.success) options.success(data);
-            }
-        ).fail(function(data) { invokeAppbackFail('Get Level', options, data); });
+        var requestUrl = url+'?userdata=true&timestamp='+sig.timestamp+'&signature='+sig.signature;
+        ajaxGetRequest(requestUrl, 'Get Level', options);
     }
  
     /* Game get leaderboard method */
     appback.prototype.getLeaderboard = function(options) {
         if (debug) console.log('Appback: getLeaderboard invoked');
- 
         var url = 'https://api.appback.com/'+appbackAppId+'/game/players/';
         var sig = getAppbackSig(url);
+        var requestUrl = url+'?timestamp='+sig.timestamp+'&signature='+sig.signature;
+        ajaxGetRequest(requestUrl, 'Get Leaderboard', options);
+    }
  
-        $.get(
-            url+'?timestamp='+sig.timestamp+'&signature='+sig.signature,
-            function(data) {
-                if (debug) console.log(JSON.stringify(data));
-                if (options.success) options.success(data);
-            }
-        ).fail(function(data) { invokeAppbackFail('Get Leaderboard', options, data); });
+    /* Game get player data */
+    appback.prototype.getPlayer = function(options) {
+        if (debug) console.log('Appback: getPlayer invoked');
+        var url = 'https://api.appback.com/'+appbackAppId+'/game/players/'+options.userId;
+        var sig = getAppbackSig(url);
+        var requestUrl = url+'?userdata=true&timestamp='+sig.timestamp+'&signature='+sig.signature;
+        ajaxGetRequest(requestUrl, 'Get Player', options);
     }
  
     /* Game update player stats method */
     appback.prototype.updatePlayerStats = function(options) {
         if (debug) console.log('Appback: updatePlayerStats invoked');
- 
         var url = 'https://api.appback.com/'+appbackAppId+'/game/players/self/update/';
         var sig = getAppbackSig(url);
         var achParam = (options.achId && options.amount) ? '&achievement='+options.achId+'&amount='+options.amount : '';
         var pointsParam = (options.points) ? '&points='+options.points : '';
+        var requestUrl = url+'?timestamp='+sig.timestamp+achParam+pointsParam+'&signature='+sig.signature;
+        ajaxPostRequest(requestUrl, 'Update Player Stats', options);
+    }
  
-        console.log(url+'?timestamp='+sig.timestamp+achParam+pointsParam+'&signature='+sig.signature);
- 
-        $.post(
-            url+'?timestamp='+sig.timestamp+achParam+pointsParam+'&signature='+sig.signature,
+    /* Internal functions */
+    function ajaxGetRequest(url, method, options) {
+        $.get(
+            url,
             function(data) {
                 if (debug) console.log(JSON.stringify(data));
                 if (options.success) options.success(data);
             }
-        ).fail(function(data) { invokeAppbackFail('Update Player Stats', options, data); });
+        ).fail(function(data) { invokeAppbackFail(method, options, data); });
     }
  
-    /* Internal functions */
+    function ajaxPostRequest(url, method, options) {
+        $.post(
+            url,
+            function(data) {
+                if (debug) console.log(JSON.stringify(data));
+                if (options.success) options.success(data);
+            }
+        ).fail(function(data) { invokeAppbackFail(method, options, data); });
+    }
+ 
     function invokeAppbackFail(method, options, data) {
         if (debug) console.log('Appback: '+method+' fail response = '+JSON.stringify(JSON.parse(data.responseText)));
         if (options.fail) options.fail(JSON.parse(data.responseText));
