@@ -129,7 +129,7 @@ Get game achievements (plugin must already be initalized and user logged in).
 Get single game achievement (plugin must already be initalized and user logged in).
 
     window.plugins.appback.getAchievement({
-        'achId': achievementId
+        'achId': achievementId,
         'success': successCallback,
         'fail': failureCallback
     });
@@ -144,7 +144,7 @@ Get game levels (plugin must already be initalized and user logged in).
 Get single game level (plugin must already be initalized and user logged in).
 
     window.plugins.appback.getLevel({
-        'levelId': levelId
+        'levelId': levelId,
         'success': successCallback,
         'fail': failureCallback
     });
@@ -159,7 +159,7 @@ Get game leaderboard (plugin must already be initalized and user logged in).
 Get player info (plugin must already be initalized and user logged in).
 
     window.plugins.appback.getPlayer({
-        'userId': userId
+        'userId': userId,
         'success': successCallback,
         'fail': failureCallback
     });
