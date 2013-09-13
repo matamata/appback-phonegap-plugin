@@ -7,7 +7,7 @@
     <name>Appback Phonegap (Cordova) Plugin</name>
 
     <description>
-        This Appback plugin for Phonegap allows for easy use the Appback.com API in mobile applications.  Appback provides a mobile backend as a service with an easy to use API for user login, social integration, game mechanics, and NoSQL custom data.  Register at https://appback.com
+        This Appback plugin for Phonegap allows for easy use of the Appback.com API in mobile applications.  Appback provides a mobile backend as a service with an easy to use API for user login, social integration, game mechanics, and NoSQL custom data.  Register at https://appback.com
     </description>
 
     <license>MIT</license>

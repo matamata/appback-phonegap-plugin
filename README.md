@@ -16,6 +16,10 @@ This plugin can also be installed using Plugman.
 
     plugman --platform ios --project /path/to/project --plugin  https://github.com/appback/appback-phonegap-plugin.git
     
+If you are using Phonegap Build, add the plugin to your config.xml file.
+
+    <gap:plugin name="com.appback.plugins.appback" />
+
 This plugin requires that the inAppBrowser is added to the phonegap config.xml file.
 
     <feature name="InAppBrowser">
