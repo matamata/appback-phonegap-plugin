@@ -1,5 +1,5 @@
 /*
-*   Appback Phonegap (Cordova) Plugin v1.5.0
+*   Appback Phonegap (Cordova) Plugin v1.5.1
 *   Copyright 2013 Xiatron LLC
 *   Made available under MIT License
 *
@@ -247,7 +247,10 @@
         if (cbInvoked) return false;
         cbInvoked = true;
  
-        cB = window.open(url, '_blank', 'location=no');
+ 		//get the correct location bar setting
+ 		var locationBar = (device.platform == 'Android') ? 'location=yes' : 'location=no';
+ 		
+        cB = window.open(url, '_blank', locationBar);
  
         cB.addEventListener('loadstart', function(event) {
             cB.executeScript({

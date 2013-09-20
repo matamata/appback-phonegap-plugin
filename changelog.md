@@ -1,3 +1,7 @@
+## 1.5.1 (Sep 20, 2013)
+
+ * Added location bar to Android InAppBrowser
+
 ## 1.5.0 (Sep 02, 2013)
 
  * Added Get Player method
