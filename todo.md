@@ -1,5 +1,8 @@
 - [ ] Add error handling to Init method
 - [ ] Add limit option to appropriate methods
+- [ ] Combine similar ajax methods
+- [ ] Add Head and Copy Data methods
+- [X] Add Datastore methods
 - [X] Add function to consolidate $.get() use
 - [X] Add method to return player information
 - [X] Add method to return levels info

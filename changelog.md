@@ -1,3 +1,11 @@
+## 1.6.0 (Sep 21, 2013)
+
+ * Added Get Data method
+ * Added Post Data method
+ * Added Put Data method
+ * Added Delete Data method
+
+
 ## 1.5.1 (Sep 20, 2013)
 
  * Added location bar to Android InAppBrowser

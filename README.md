@@ -177,8 +177,41 @@ Update Player Stats (plugin must already be initalized and user logged in).
         'success':successCallback,
         'fail': failureCallback
     });
+    
+Get Data (plugin must already be initalized and user logged in).
 
-(More documentation and plugin methods coming soon.)
+    window.plugins.appback.getData({
+        'resourceUri': resource, // i.e. db/doc_id
+        'success': successCallback,
+        'fail': failureCallback
+    });
+    
+Post Data (plugin must already be initalized and user logged in).
+
+    window.plugins.appback.postData({
+        'resourceUri': resource,
+        'data': data,
+        'success': successCallback,
+        'fail': failureCallback
+    });
+    
+Put Data (plugin must already be initalized and user logged in).
+
+    window.plugins.appback.putData({
+        'resourceUri': resource,
+        'data': data,
+        'success': successCallback,
+        'fail': failureCallback
+    });
+    
+Delete Data (plugin must already be initalized and user logged in).
+
+    window.plugins.appback.deleteData({
+        'resourceUri': resource, // i.e. /db/doc_id?rev=15-e90f3dabeba33c916c72e58b93e6ff97
+        'success': successCallback,
+        'fail': failureCallback
+    });
+
 
 ## About Appback
 

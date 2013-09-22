@@ -1,5 +1,5 @@
 /*
-*   Appback Phonegap (Cordova) Plugin v1.5.1
+*   Appback Phonegap (Cordova) Plugin v1.6
 *   Copyright 2013 Xiatron LLC
 *   Made available under MIT License
 *
@@ -186,12 +186,49 @@
         ajaxPostRequest(requestUrl, 'Update Player Stats', options);
     }
  
+    /* Datastore get method */
+    appback.prototype.getData = function(options) {
+        if (debug) console.log('Appback: getData invoked');
+        var url = 'https://api.appback.com/'+appbackAppId+'/datastore/'+options.resourceUri;
+        var sig = getAppbackSig(url);
+        var requestUrl = url+'?timestamp='+sig.timestamp+'&signature='+sig.signature;
+        ajaxGetRequest(requestUrl, 'Get Data', options);
+    }
+ 
+    /* Datastore post method */
+    appback.prototype.postData = function(options) {
+        if (debug) console.log('Appback: postData invoked');
+        var url = 'https://api.appback.com/'+appbackAppId+'/datastore/'+options.resourceUri;
+        var sig = getAppbackSig(url);
+        var requestUrl = url+'?timestamp='+sig.timestamp+'&signature='+sig.signature;
+        ajaxPostRequest(requestUrl, 'Post Data', options);
+    }
+ 
+    /* Datastore put method */
+    appback.prototype.putData = function(options) {
+        if (debug) console.log('Appback: putData invoked');
+        var url = 'https://api.appback.com/'+appbackAppId+'/datastore/'+options.resourceUri;
+        var sig = getAppbackSig(url);
+        var requestUrl = url+'?timestamp='+sig.timestamp+'&signature='+sig.signature;
+        ajaxPutRequest(requestUrl, 'Put Data', options);
+    }
+ 
+    /* Datastore delete method */
+    appback.prototype.deleteData = function(options) {
+        if (debug) console.log('Appback: deleteData invoked');
+        var url = 'https://api.appback.com/'+appbackAppId+'/datastore/'+options.resourceUri;
+        var sig = getAppbackSig(url);
+        var qsSep = (url.indexOf('?') != -1) ? '&' : '?';
+        var requestUrl = url+qsSep+'timestamp='+sig.timestamp+'&signature='+sig.signature;
+        ajaxDeleteRequest(requestUrl, 'Delete Data', options);
+    }
+ 
     /* Internal functions */
     function ajaxGetRequest(url, method, options) {
         $.get(
             url,
             function(data) {
-                if (debug) console.log(JSON.stringify(data));
+                if (debug) console.log(data);
                 if (options.success) options.success(data);
             }
         ).fail(function(data) { invokeAppbackFail(method, options, data); });
@@ -200,11 +237,35 @@
     function ajaxPostRequest(url, method, options) {
         $.post(
             url,
+            options.data,
             function(data) {
                 if (debug) console.log(JSON.stringify(data));
                 if (options.success) options.success(data);
             }
         ).fail(function(data) { invokeAppbackFail(method, options, data); });
+    }
+ 
+    function ajaxPutRequest(url, method, options) {
+        $.ajax({
+           url: url,
+           type: 'PUT',
+           data: options.data,
+           success: function(data) {
+                if (debug) console.log(data);
+                if (options.success) options.success(data);
+           }
+        }).fail(function(data) { invokeAppbackFail(method, options, data); }); 
+    }
+ 
+    function ajaxDeleteRequest(url, method, options) {
+        $.ajax({
+           url: url,
+           type: 'DELETE',
+           success: function(data) {
+                if (debug) console.log(data);
+                if (options.success) options.success(data);
+           }
+        }).fail(function(data) { invokeAppbackFail(method, options, data); }); 
     }
  
     function invokeAppbackFail(method, options, data) {
