@@ -1,4 +1,4 @@
-## 1.6.0 (Sep 21, 2013)
+## 1.6.0 (Sep 22, 2013)
 
  * Added Get Data method
  * Added Post Data method
